@@ -1,17 +1,21 @@
 import 'dart:developer';
-import 'package:firebase_core/firebase_core.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:witwise_alpha/screens/Auth/EmailLogin.dart';
 
-class SignupEmail extends StatelessWidget {
-  // Declare your TextEditingController objects here
+class SignupEmail extends StatefulWidget {
+  @override
+  _SignupEmailState createState() => _SignupEmailState();
+}
+
+class _SignupEmailState extends State<SignupEmail> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController cpasswordController = TextEditingController();
+  bool _obscurePassword = true; // State variable for password visibility
 
-  // Create a method for creating a new account
   Future<void> createAccount(BuildContext context) async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
@@ -23,18 +27,19 @@ class SignupEmail extends StatelessWidget {
     print("Confirm Password: $cpassword");
 
     try {
-      if (email == "" || password == ""|| cpassword == "") {
+      if (email == "" || password == "" || cpassword == "") {
         log("Please Fill All The Fields");
       } else if (password != cpassword) {
         log("Passwords not matching");
       } else {
-        // Use createUserWithEmailAndPassword to create a new user
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         log("User created with email: $email");
 
-        // You can navigate to another screen after successful registration if needed
-        Navigator.push(context, MaterialPageRoute(builder: (context) => EmailLogin()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => EmailLogin()),
+        );
       }
     } catch (e) {
       log("Error creating account: $e");
@@ -80,7 +85,7 @@ class SignupEmail extends StatelessWidget {
                 ),
                 SizedBox(height: 5.0),
                 TextField(
-                  controller: emailController, // Added controller here
+                  controller: emailController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -101,12 +106,23 @@ class SignupEmail extends StatelessWidget {
                 ),
                 SizedBox(height: 5.0),
                 TextField(
-                  controller: passwordController, // Added controller here
+                  controller: passwordController,
                   style: TextStyle(color: Colors.white),
+                  obscureText: _obscurePassword, // Hide password characters
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscurePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off), // Icon for toggling password visibility
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -124,8 +140,9 @@ class SignupEmail extends StatelessWidget {
                 ),
                 SizedBox(height: 5.0),
                 TextField(
-                  controller: cpasswordController, // Added controller here
+                  controller: cpasswordController,
                   style: TextStyle(color: Colors.white),
+                  obscureText: _obscurePassword, // Hide confirm password characters
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
@@ -141,7 +158,7 @@ class SignupEmail extends StatelessWidget {
                   width: 350.0,
                   child: ElevatedButton(
                     onPressed: () {
-                      createAccount(context); // Pass the context to the method
+                      createAccount(context);
                     },
                     child: Text('Create Account'),
                     style: ElevatedButton.styleFrom(

@@ -15,6 +15,7 @@ class EmailLogin extends StatefulWidget {
 class _EmailLoginState extends State<EmailLogin> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool _obscurePassword = true; // State variable for password visibility
 
   void login() async {
     String email = emailController.text.trim();
@@ -105,10 +106,21 @@ class _EmailLoginState extends State<EmailLogin> {
                 TextField(
                   controller: passwordController,
                   style: TextStyle(color: Colors.white),
+                  obscureText: _obscurePassword, // Hide password characters
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscurePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off), // Icon for toggling password visibility
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
                     ),
                   ),
                 ),
