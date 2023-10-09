@@ -16,21 +16,18 @@ class _SignupEmailState extends State<SignupEmail> {
   final TextEditingController cpasswordController = TextEditingController();
   bool _obscurePassword = true; // State variable for password visibility
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); // Add a GlobalKey for the Scaffold
+
   Future<void> createAccount(BuildContext context) async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     String cpassword = cpasswordController.text.trim();
 
-    // Debug prints
-    print("Email: $email");
-    print("Password: $password");
-    print("Confirm Password: $cpassword");
-
     try {
       if (email == "" || password == "" || cpassword == "") {
-        log("Please Fill All The Fields");
+        _showSnackBar("Please Fill All The Fields"); // Show a Snackbar
       } else if (password != cpassword) {
-        log("Passwords not matching");
+        _showSnackBar("Passwords not matching"); // Show a Snackbar
       } else {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
@@ -42,13 +39,23 @@ class _SignupEmailState extends State<SignupEmail> {
         );
       }
     } catch (e) {
-      log("Error creating account: $e");
+      _showSnackBar("Error creating account: $e"); // Show a Snackbar with the error message
     }
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: Duration(seconds: 3), // Adjust the duration as needed
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey, // Assign the GlobalKey to the Scaffold
       backgroundColor: Colors.black12,
       body: SafeArea(
         child: SingleChildScrollView(
