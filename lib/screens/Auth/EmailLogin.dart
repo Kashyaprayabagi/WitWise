@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +20,7 @@ class _EmailLoginState extends State<EmailLogin> {
     String password = passwordController.text.trim();
 
     if (email == "" || password == "") {
-      log('Please fill all the fields');
+      _showSnackBar('Please fill all the fields'); // Show a Snackbar
     } else {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
@@ -35,9 +33,18 @@ class _EmailLoginState extends State<EmailLogin> {
           );
         }
       } on FirebaseAuthException catch (ex) {
-        log(ex.code.toString());
+        _showSnackBar(ex.code.toString()); // Show a Snackbar
       }
     }
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: Duration(seconds: 3), // Adjust the duration as needed
+      ),
+    );
   }
 
   @override
