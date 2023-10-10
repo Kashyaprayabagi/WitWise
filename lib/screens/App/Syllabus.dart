@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
@@ -9,6 +10,19 @@ class Syllabus extends StatefulWidget {
 }
 
 class _SyllabusState extends State<Syllabus> {
+  // List<AggregateQuerySnapshot> PdfData = [];
+  //
+  // void getAppPdf() async {
+  //   final results = await FirebaseFirestore.instance.collection('syllabus')
+  //       .get();
+  //
+  //   PdfData = results.docs.map((e) => e.data())
+  //       .cast<AggregateQuerySnapshot>()
+  //       .toList();
+  // }
+  // }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.black,
-        drawer: const HomeDrawer(),
+        drawer: HomeDrawer(),
         appBar: AppBar(
           title: const Text('WitWise'),
           backgroundColor: Colors.black,
