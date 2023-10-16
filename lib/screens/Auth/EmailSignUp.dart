@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,24 +12,26 @@ class _SignupEmailState extends State<SignupEmail> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController cpasswordController = TextEditingController();
-  bool _obscurePassword = true; // State variable for password visibility
+  final TextEditingController nameController = TextEditingController(); // Changed to lowercase
+  bool _obscurePassword = true;
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); // Add a GlobalKey for the Scaffold
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<void> createAccount(BuildContext context) async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     String cpassword = cpasswordController.text.trim();
+    String name = nameController.text.trim(); // Changed to lowercase
 
     try {
-      if (email == "" || password == "" || cpassword == "") {
-        _showSnackBar("Please Fill All The Fields"); // Show a Snackbar
+      if (email == "" || password == "" || cpassword == "" || name == "") {
+        _showSnackBar("Please Fill All The Fields");
       } else if (password != cpassword) {
-        _showSnackBar("Passwords not matching"); // Show a Snackbar
+        _showSnackBar("Passwords not matching");
       } else {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
-        log("User created with email: $email");
+        _showSnackBar("User created with email: $email");
 
         Navigator.push(
           context,
@@ -39,7 +39,7 @@ class _SignupEmailState extends State<SignupEmail> {
         );
       }
     } catch (e) {
-      _showSnackBar("Error creating account: $e"); // Show a Snackbar with the error message
+      _showSnackBar("Error creating account: $e");
     }
   }
 
@@ -47,7 +47,7 @@ class _SignupEmailState extends State<SignupEmail> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        duration: Duration(seconds: 3), // Adjust the duration as needed
+        duration: Duration(seconds: 3),
       ),
     );
   }
@@ -55,11 +55,11 @@ class _SignupEmailState extends State<SignupEmail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey, // Assign the GlobalKey to the Scaffold
+      key: _scaffoldKey,
       backgroundColor: Colors.black12,
       body: SafeArea(
         child: SingleChildScrollView(
-          reverse: true, // Set to true to avoid render overflow
+          reverse: true,
           child: Padding(
             padding: const EdgeInsets.all(22.0),
             child: Column(
@@ -81,20 +81,13 @@ class _SignupEmailState extends State<SignupEmail> {
                   ),
                 ),
                 SizedBox(height: 75.0),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Email:',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
                 SizedBox(height: 5.0),
                 TextField(
                   controller: emailController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
+                    hintText: 'Email',
+                    hintStyle: TextStyle(color: Colors.grey.shade800),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(10.0),
@@ -102,21 +95,26 @@ class _SignupEmailState extends State<SignupEmail> {
                   ),
                 ),
                 SizedBox(height: 25.0),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Password:',
-                      style: TextStyle(color: Colors.white),
+                TextField(
+                  controller: nameController, // Changed to lowercase
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Name',
+                    hintStyle: TextStyle(color: Colors.grey.shade800),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                  ],
+                  ),
                 ),
-                SizedBox(height: 5.0),
+                SizedBox(height: 25.0),
                 TextField(
                   controller: passwordController,
                   style: TextStyle(color: Colors.white),
-                  obscureText: _obscurePassword, // Hide password characters
+                  obscureText: _obscurePassword,
                   decoration: InputDecoration(
+                    hintText: 'Password',
+                    hintStyle: TextStyle(color: Colors.grey.shade800),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(10.0),
@@ -124,7 +122,7 @@ class _SignupEmailState extends State<SignupEmail> {
                     suffixIcon: IconButton(
                       icon: Icon(_obscurePassword
                           ? Icons.visibility
-                          : Icons.visibility_off), // Icon for toggling password visibility
+                          : Icons.visibility_off),
                       onPressed: () {
                         setState(() {
                           _obscurePassword = !_obscurePassword;
@@ -134,23 +132,15 @@ class _SignupEmailState extends State<SignupEmail> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 25.0,
                 ),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Confirm Password:',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5.0),
                 TextField(
                   controller: cpasswordController,
                   style: TextStyle(color: Colors.white),
-                  obscureText: _obscurePassword, // Hide confirm password characters
+                  obscureText: _obscurePassword,
                   decoration: InputDecoration(
+                    hintText: 'Confirm Password',
+                    hintStyle: TextStyle(color: Colors.grey.shade800),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(10.0),

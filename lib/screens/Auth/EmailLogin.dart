@@ -77,20 +77,12 @@ class _EmailLoginState extends State<EmailLogin> {
                 const SizedBox(
                   height: 100.0,
                 ),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Email:',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 5.0),
                 TextField(
                   style: TextStyle(color: Colors.white),
                   controller: emailController,
                   decoration: InputDecoration(
+                    hintText: 'Email',
+                    hintStyle: TextStyle(color: Colors.grey.shade800),
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(10.0),
@@ -100,21 +92,13 @@ class _EmailLoginState extends State<EmailLogin> {
                 const SizedBox(
                   height: 35.0,
                 ),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Password:',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5.0),
                 TextField(
                   controller: passwordController,
                   style: TextStyle(color: Colors.white),
                   obscureText: _obscurePassword, // Hide password characters
                   decoration: InputDecoration(
+                    hintText: 'Password',
+                    hintStyle: TextStyle(color: Colors.grey.shade800),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(10.0),
