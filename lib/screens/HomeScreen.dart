@@ -36,15 +36,66 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    )
                   ),
                   child: const Text(
-                    'Syllabus',
-                    style: TextStyle(color: Colors.white),
+                    'Syllabus                             ',
+                    style: TextStyle(color: Colors.white,
+                    fontWeight: FontWeight.bold,fontSize: 17.0),
                   ),
                 ),
               ),
               const Divider(),
-              // Add more buttons as needed
+              const Divider(),
+              SizedBox(
+                height: 120.0,
+                width: 400.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Syllabus()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      )
+                  ),
+                  child: const Text(
+                    'PYQs                                  ',
+                    style: TextStyle(color: Colors.white,
+                        fontWeight: FontWeight.bold,fontSize: 17.0),
+                  ),
+                ),
+              ),
+              const Divider(),
+              const Divider(),
+              SizedBox(
+                height: 120.0,
+                width: 400.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Syllabus()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      )
+                  ),
+                  child: const Text(
+                    'Notes                                  ',
+                    style: TextStyle(color: Colors.white,
+                        fontWeight: FontWeight.bold,fontSize: 17.0),
+                  ),
+                ),
+              ),
+
+
             ],
           ),
         ),
