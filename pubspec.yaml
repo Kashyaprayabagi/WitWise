@@ -45,7 +45,7 @@ dependencies:
   firebase_storage: ^11.2.8
   cloud_firestore: ^4.9.3
   file_picker: ^5.5.0
-  pdf_viewer_plugin: ^2.0.1
+  easy_pdf_viewer: ^1.0.7
   win32: ^5.0.9
 
 
@@ -75,6 +75,7 @@ flutter:
   assets:
       - images/open.png
       - images/profile.png
+      - images/pdf.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
