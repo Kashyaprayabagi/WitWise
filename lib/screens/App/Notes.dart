@@ -4,14 +4,14 @@ import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 
 import '../Drawer/BottomNav.dart';
 
-class Syllabus extends StatefulWidget {
-  const Syllabus({Key? key}) : super(key: key);
+class Notes extends StatefulWidget {
+  const Notes({Key? key});
 
   @override
-  _SyllabusState createState() => _SyllabusState();
+  State<Notes> createState() => _NotesState();
 }
 
-class _SyllabusState extends State<Syllabus> {
+class _NotesState extends State<Notes> {
   List<String> pdfUrls = [];
   int _selectedIndex = 0; // Initialize it to the desired initial tab
 
@@ -32,7 +32,7 @@ class _SyllabusState extends State<Syllabus> {
     final FirebaseStorage storage = FirebaseStorage.instance;
 
     try {
-      final ListResult result = await storage.ref('syllabus').listAll();
+      final ListResult result = await storage.ref('Notes/').listAll();
       final urls = await Future.wait(result.items.map((item) => item.getDownloadURL()));
 
       setState(() {
@@ -80,7 +80,7 @@ class _SyllabusState extends State<Syllabus> {
                   itemBuilder: (context, index) {
                     final pdfUrl = pdfUrls[index];
                     var pdfName = decodeUrl(pdfUrl.split('/').last);
-                    pdfName = pdfName.replaceFirst('syllabus/', '  ');
+                    pdfName = pdfName.replaceFirst('Notes/', '  ');
                     if (pdfName.endsWith('.pdf')) {
                       pdfName = pdfName.substring(0, pdfName.length - 4); // Remove ".pdf"
                     }
@@ -146,10 +146,15 @@ class _SyllabusState extends State<Syllabus> {
 class PdfViewerScreen extends StatelessWidget {
   final String pdfUrl;
   final String pdfName;
-  final int selectedIndex; // Added selectedIndex
-  final Function(int) onTabTapped; // Added onTabTapped
+  final int selectedIndex;
+  final Function(int) onTabTapped;
 
-  PdfViewerScreen({required this.pdfUrl, required this.pdfName, required this.selectedIndex, required this.onTabTapped});
+  PdfViewerScreen({
+    required this.pdfUrl,
+    required this.pdfName,
+    required this.selectedIndex,
+    required this.onTabTapped,
+  });
 
   @override
   Widget build(BuildContext context) {

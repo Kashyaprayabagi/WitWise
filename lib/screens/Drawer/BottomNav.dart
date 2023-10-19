@@ -1,47 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:witwise_alpha/screens/HomeScreen.dart';
 
-class BottomNav extends StatefulWidget {
-  const BottomNav({Key? key}) : super(key: key);
+import '../PDF Techniques/PDFTecniques.dart';
 
-  @override
-  State<BottomNav> createState() => _State();
-}
+class BottomNav extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onTabTapped;
 
-class _State extends State<BottomNav> {
+  BottomNav({required this.selectedIndex, required this.onTabTapped});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-          bottomNavigationBar: Container(
-            color: Colors.redAccent,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 18.0),
-              child: GNav(
-                backgroundColor: Colors.redAccent,
-                activeColor: Colors.white,
-                tabBackgroundColor: Colors.grey.shade800,
-                gap:8,
-                padding: const EdgeInsets.all(8),
-                tabs: const [
-                  GButton (
-                    icon: Icons.home,
-                    text: 'Home',
-                  ),
-                  GButton (
-                    icon: Icons.bookmark,
-                    text: 'Bookmark',
-                  ),
-                  GButton(
-                    icon: Icons.upload,
-                    text: 'Upload',
-                  ),
-                  GButton (
-                    icon: Icons.book,
-                    text: 'PYQs',
-                  ),
-                ],
-              ),),),
-    ),);
+    return Container(
+      color: Colors.redAccent,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 18.0),
+        child: GNav(
+          backgroundColor: Colors.redAccent,
+          activeColor: Colors.white,
+          tabBackgroundColor: Colors.grey.shade800,
+          gap: 8,
+          padding: const EdgeInsets.all(8),
+          tabs: [
+          GButton(
+          icon: Icons.home,
+          text: 'Home',
+            onPressed: () { Navigator.push(context,MaterialPageRoute(builder: (context) => const HomeScreen()));
+            },
+        ),
+        GButton(
+          icon: Icons.bookmark,
+          text: 'Bookmark',
+        ),
+        GButton(
+          icon: Icons.upload,
+          text: 'Upload',
+          onPressed: () {
+            // Call the uploadFile function from FileUploader
+            FileUploader.uploadPDF();
+          },
+        ),
+        GButton(
+          icon: Icons.book,
+          text: 'PYQs',
+        ),
+      ],)),
+    );
   }
 }

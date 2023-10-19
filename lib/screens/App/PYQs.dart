@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
+import 'package:witwise_alpha/screens/Drawer/BottomNav.dart';
 
-import '../Drawer/BottomNav.dart';
-
-class Syllabus extends StatefulWidget {
-  const Syllabus({Key? key}) : super(key: key);
+class Pyqs extends StatefulWidget {
+  const Pyqs({Key? key});
 
   @override
-  _SyllabusState createState() => _SyllabusState();
+  State<Pyqs> createState() => _PyqsState();
 }
 
-class _SyllabusState extends State<Syllabus> {
+class _PyqsState extends State<Pyqs> {
   List<String> pdfUrls = [];
   int _selectedIndex = 0; // Initialize it to the desired initial tab
 
@@ -32,7 +31,7 @@ class _SyllabusState extends State<Syllabus> {
     final FirebaseStorage storage = FirebaseStorage.instance;
 
     try {
-      final ListResult result = await storage.ref('syllabus').listAll();
+      final ListResult result = await storage.ref('PYQs').listAll();
       final urls = await Future.wait(result.items.map((item) => item.getDownloadURL()));
 
       setState(() {
@@ -79,8 +78,7 @@ class _SyllabusState extends State<Syllabus> {
                   itemCount: pdfUrls.length,
                   itemBuilder: (context, index) {
                     final pdfUrl = pdfUrls[index];
-                    var pdfName = decodeUrl(pdfUrl.split('/').last);
-                    pdfName = pdfName.replaceFirst('syllabus/', '  ');
+                    var pdfName = decodeUrl(pdfUrl);
                     if (pdfName.endsWith('.pdf')) {
                       pdfName = pdfName.substring(0, pdfName.length - 4); // Remove ".pdf"
                     }
@@ -146,10 +144,15 @@ class _SyllabusState extends State<Syllabus> {
 class PdfViewerScreen extends StatelessWidget {
   final String pdfUrl;
   final String pdfName;
-  final int selectedIndex; // Added selectedIndex
-  final Function(int) onTabTapped; // Added onTabTapped
+  final int selectedIndex;
+  final Function(int) onTabTapped;
 
-  PdfViewerScreen({required this.pdfUrl, required this.pdfName, required this.selectedIndex, required this.onTabTapped});
+  PdfViewerScreen({
+    required this.pdfUrl,
+    required this.pdfName,
+    required this.selectedIndex,
+    required this.onTabTapped,
+  });
 
   @override
   Widget build(BuildContext context) {

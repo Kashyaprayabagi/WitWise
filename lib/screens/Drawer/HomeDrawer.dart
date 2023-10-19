@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:witwise_alpha/screens/App/About.dart';
 import 'package:witwise_alpha/screens/IntroScreen.dart';
 
 class HomeDrawer extends StatelessWidget {
@@ -56,7 +57,7 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.info, color: Colors.white),
             title: Text('About Us', style: TextStyle(color: Colors.white)),
-            onTap: () => print('We are messed up'),
+            onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutScreen()));},
           ),
           Divider(),
           ListTile(

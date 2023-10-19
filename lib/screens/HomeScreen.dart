@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:witwise_alpha/screens/App/Notes.dart';
+import 'package:witwise_alpha/screens/App/PYQs.dart';
 import 'package:witwise_alpha/screens/App/Syllabus.dart';
 import 'package:witwise_alpha/screens/Drawer/HomeDrawer.dart';
 import 'PDF Techniques/PDFTecniques.dart'; // Import the FileUploader class
@@ -55,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 400.0,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Syllabus()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Pyqs()));
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.redAccent,
@@ -78,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 400.0,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Syllabus()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Notes()));
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.redAccent,
@@ -114,6 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 GButton(
                   icon: Icons.home,
                   text: 'Home',
+                  onPressed: () { Navigator.push(context,MaterialPageRoute(builder: (context) => const HomeScreen()));
+                  },
                 ),
                 GButton(
                   icon: Icons.bookmark,
