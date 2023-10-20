@@ -76,6 +76,13 @@ flutter:
       - images/open.png
       - images/profile.png
       - images/pdf.png
+      - images/kashyap.png
+      - images/lakshya.jpg
+      - images/sahej.jpg
+      - images/srishti.jpg
+      - images/tulika.jpg
+      - images/harsh.jpg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

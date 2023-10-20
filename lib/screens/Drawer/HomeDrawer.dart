@@ -36,16 +36,6 @@ class HomeDrawer extends StatelessWidget {
             accountName: null,
           ),
           ListTile(
-            leading: Icon(Icons.settings, color: Colors.white),
-            title: Text('Settings', style: TextStyle(color: Colors.white)),
-            onTap: () => print('settings'),
-          ),
-          ListTile(
-            leading: Icon(Icons.bookmark, color: Colors.white),
-            title: Text('Bookmark', style: TextStyle(color: Colors.white)),
-            onTap: () => print('Bookmarked'),
-          ),
-          ListTile(
             leading: Icon(Icons.people, color: Colors.white),
             title: Text('Developers', style: TextStyle(color: Colors.white)),
             onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Developers()));
