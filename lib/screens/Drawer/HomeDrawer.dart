@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:witwise_alpha/screens/App/About.dart';
+import 'package:witwise_alpha/screens/App/Developers.dart';
 import 'package:witwise_alpha/screens/IntroScreen.dart';
 
 class HomeDrawer extends StatelessWidget {
@@ -47,7 +48,8 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.people, color: Colors.white),
             title: Text('Developers', style: TextStyle(color: Colors.white)),
-            onTap: () => print('Developers'),
+            onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Developers()));
+            }
           ),
           ListTile(
             leading: Icon(Icons.share, color: Colors.white),

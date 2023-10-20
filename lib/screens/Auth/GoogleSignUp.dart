@@ -1,6 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:witwise_alpha/screens/IntroScreen.dart';
+
+import '../HomeScreen.dart';
+ // Import your home screen
 
 class GoogleSignInProvider extends ChangeNotifier {
   final googleSignIn = GoogleSignIn();
@@ -9,7 +13,7 @@ class GoogleSignInProvider extends ChangeNotifier {
 
   GoogleSignInAccount get user => _user!;
 
-  Future googleLogin() async {
+  Future googleLogin(BuildContext context) async { // Pass the context
     final googleUser = await googleSignIn.signIn();
     if (googleUser == null) return;
     _user = googleUser;
@@ -23,16 +27,29 @@ class GoogleSignInProvider extends ChangeNotifier {
 
     await FirebaseAuth.instance.signInWithCredential(credential);
 
-    notifyListeners();
+    // Redirect to the home screen after successful sign-in
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(), // Replace with your home screen widget
+      ),
+    );
 
+    notifyListeners();
   }
 
-  Future<void> handleSignOut() async {
+  Future<void> handleSignOut(BuildContext context) async { // Pass the context
     try {
       await googleSignIn.signOut();
-    }
-    catch (e){
-      print("error signing out:$e");
+      // Redirect to the login or welcome screen after sign-out
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => IntroScreen(), // Replace with your login or welcome screen widget
+        ),
+      );
+    } catch (e) {
+      print("Error signing out: $e");
     }
   }
 }
